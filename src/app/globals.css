@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --brand: #0d9488;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1120;
+    --surface: #111a2e;
+    --border: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --brand: #2dd4bf;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border-soft: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all; /* 한국어 줄바꿈을 어절 단위로 */
+}
+
+/* 넓은 콘텐츠는 자기 안에서 스크롤되게 해서 페이지 가로 스크롤을 막는다 */
+.scroll-x {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ── 인쇄 / PDF 내보내기 ─────────────────────────────────────
+   별도 라이브러리 없이 브라우저 인쇄 기능만으로 PDF를 만든다.
+   한글 폰트가 깨지지 않고 번들 용량도 늘지 않는다. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  /* 화면 전용 요소는 인쇄에서 제외 */
+  .no-print {
+    display: none !important;
+  }
+
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  /* 인쇄에서는 배경색이 빠지므로 테두리로 구분을 살린다 */
+  .card {
+    border: 1px solid #cbd5e1 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}
